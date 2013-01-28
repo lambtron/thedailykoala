@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var image = require('./image');
+var time = require('time');
 var cronJob = require('cron').CronJob;
 
 // Configuration
