@@ -19,11 +19,10 @@ app.listen(port);
 console.log('listening on port 3000');
 
 job = new cronJob({
-	cronTime: '00 30 11 * * 1-5',
+	cronTime: '00 00 00 * * 1-5',
 	onTick: function() {
 		image.createImage();
 	},
-	start: true,
-	timeZone: 'America/Los_Angeles'
+	start: true
 });
 job.start();
