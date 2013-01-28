@@ -119,8 +119,8 @@ function sendImage(path) {
 	server.send({
 		text: 	"i hope this works",
 		from: 	"Andy <andyjiang@gmail.com>",
-		to: 	"andy <andyjiang@gmail.com>",
-		subject: "testing email nodejs",
+		to: 	"<pcx5nmddnzuws@tumblr.com>",
+		subject: "your daily lulz",
 		attachment:
 		[
 			{
