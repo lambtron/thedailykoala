@@ -117,7 +117,7 @@ var makeImage = function addText(text) {
 function sendImage(path) {
 	// pcx5nmddnzuws@tumblr.com
 	server.send({
-		text: 	"i hope this works",
+		text: 	"the daily koala",
 		from: 	"Andy <andyjiang@gmail.com>",
 		to: 	"<pcx5nmddnzuws@tumblr.com>",
 		subject: "your daily lulz",
