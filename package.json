@@ -3,9 +3,11 @@
   "description": "automated lulz generator",
   "version": "0.0.1",
   "private": true,
-  "dependencies": {
+  "engines": {
     "node": "0.8.x",
-    "npm": "1.1.x",
+    "npm": "1.1.x"
+  },
+  "dependencies": {
     "express": "3.x",
     "gm": "~1.8.1",
     "cron": "~1.0.0",
