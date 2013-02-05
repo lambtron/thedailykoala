@@ -1,7 +1,8 @@
 module.exports = {
-	createImage: function() {
+	createImage: function( fn ) {
 		// resizeImage();
 		getText(makeImage);
+		fn();
 	}
 };
 

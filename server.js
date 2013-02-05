@@ -1,4 +1,5 @@
 var express = require('express');
+var fs = require('fs');
 var app = express();
 var image = require('./image');
 var cronJob = require('cron').CronJob;
@@ -6,12 +7,15 @@ var cronJob = require('cron').CronJob;
 // Configuration
 var port = process.env.PORT || 3000;
 
-app.get('/', function(req, res){
-	var body = 'Hello World';
 
-	res.setHeader('Content-Type', 'text/plain');
-	res.setHeader('Content-Length', body.length);
-	res.end(body);
+app.use(express.static(__dirname + '/public'));
+app.get('/', function(req, res){
+	image.createImage( function() {
+	  	var image = fs.readFileSync('resources/output.jpg');
+		res.setHeader('Content-Type', 'image/jpg');
+		// res.setHeader('Content-Length', body.length);
+		res.end(image, 'binary');	
+	});
 });
 
 app.listen(port);
