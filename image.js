@@ -7,6 +7,7 @@ module.exports = {
 };
 
 var gm = require('gm')
+  , imageMagick = gm.subClass({ imageMagick: true })
   , fs = require('fs')
   , dir = __dirname + '/resources';
 
@@ -72,7 +73,7 @@ var makeImage = function addText(text) {
 
 	// Adjust font size accordingly to width.
 	// var newImage = resizeImage(gm(dir + inputPath));
-	var newImage = gm(dir + inputPath)
+	var newImage = imageMagick(dir + inputPath)
 				   .size(function (err, size) {
 					   if (err) {
 					      console.log(err);
@@ -110,7 +111,8 @@ var makeImage = function addText(text) {
 	};
 	newImage.write(dir + outputPath, function(err) {
 		if (err) console.log('Add text to image error: ' + err);
-		sendImage(dir + outputPath);
+		console.log('saved to: ' + dir + outputPath);
+		// sendImage(dir + outputPath);
 	});
 }
 
