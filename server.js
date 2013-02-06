@@ -7,13 +7,17 @@ var cronJob = require('cron').CronJob;
 // Configuration
 var port = process.env.PORT || 3000;
 
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jade');
 app.use(express.static(__dirname + '/public'));
+app.use('/resources', express.static(__dirname + '/resources'));
 app.get('/', function(req, res){
 	image.createImage( function() {
-	  	var image = fs.readFileSync('resources/output.jpg');
-		res.setHeader('Content-Type', 'image/jpg');
-		// res.setHeader('Content-Length', body.length);
-		res.end(image, 'binary');	
+	  	// var image = fs.readFileSync('resources/output.jpg');
+	  	res.render('index.jade', {output: 'resources/output.jpg'});
+		// res.setHeader('Content-Type', 'image/jpg');
+		// // res.setHeader('Content-Length', body.length);
+		// res.end(image, 'binary');	
 	});
 });
 
