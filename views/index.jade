@@ -10,13 +10,40 @@ html
 				padding: 0;
 			}
 			h1 { font-size: 5em }
-			footer {
+			section {
 				padding-top: 50px;
 			}
+			footer {
+				padding-top: 30px;
+			}
+		script(src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js")
+		script
+			$(document).ready( function(){
+				$('#submit').click( function() {
+					var name = JSON.stringify($('#name').val());
+					$.ajax({
+						type: "POST",
+						url: "/post-to-tumblr",
+						data: '{ "name" : ' + name + ' }',
+						dataType: "json",
+						success: function() {
+							alert("Successfully posted to tumblr!");
+						},
+						contentType: "application/json; charset=utf-8"
+					});
+				});
+			});
 	body
 		h1 The Daily Koala
 		img#koala(src=output)
+		section
+			input#name(type="text", name="name", placeholder="Your name")
+			input#submit(type="submit", value="Post this Koala to Tumblr")
+			input#refresh(type="submit", value="Make a new Koala", onClick="location.reload()");
+			div
+				p
+					a(href="http://www.thekoaladaily.tumblr.com") THE DAILY KOALA TUMBLR
 		footer
 			p
-				| Made with love by your derpy friend, 
+				| 2013 - Made with love by your derpy friend, 
 				a(href='http://andyjiang.herokuapp.com') Andy

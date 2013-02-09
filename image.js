@@ -1,8 +1,9 @@
 module.exports = {
 	createImage: function( fn ) {
-		// resizeImage();
-		getText(makeImage);
-		fn();
+		getText(makeImage, fn);
+	},
+	postToTumblr: function( name, fn ) {
+		sendImage(name, fn);
 	}
 };
 
@@ -13,8 +14,8 @@ var gm = require('gm')
 
 var email = require('emailjs/email');
 var server = email.server.connect({
-	user: 		"andyjiang",
-	password: 	"Yahong8*",
+	user: 		"thedailykoala8",
+	password: 	"mikewei8*",
 	host:  		"smtp.gmail.com",
 	ssl: 		true 
 });
@@ -45,7 +46,7 @@ function resizeImage( image ) {
 }
 
 // Read random line of text from text file.
-function getText( textHandler ) {
+function getText( textHandler, callback ) {
 	var text = '';
 	fs.readFile(dir + '/lines.txt', 'utf8', function(err, data) {
 		if (err) console.log(err);
@@ -53,12 +54,12 @@ function getText( textHandler ) {
 		text = arr[Math.floor(Math.random() * arr.length)];
 		// console.log('Random line: ' + text);
 		// return text;
-		textHandler(text);
+		textHandler(text, callback);
 	});
 }
 
 // Add line of text to image and saves it.
-var makeImage = function addText(text) {
+var makeImage = function addText(text, callback) {
 	// Set the pathname for the input.
 	var inputPath = '/mike wei ' + (Math.floor(Math.random() * 59) + 1) + '.jpeg';
 
@@ -89,10 +90,10 @@ var makeImage = function addText(text) {
 	var y = x * 2;
 	var lines = Math.floor(text.length / charPerLine) + 1;
 	var offset = 0;
-	newImage.stroke('#ffffff')
+	newImage.stroke('#000000')
 			.fill('#ffffff')
 			.font('Helvetica.ttf', fontPt);
-	console.log('lines: ' + lines);
+	// console.log('lines: ' + lines);
 	for (var j = 0; j < lines + 1; j++) {
 		var start = (j * charPerLine - offset);
 		var end = ((j+1) * charPerLine - offset);
@@ -101,38 +102,39 @@ var makeImage = function addText(text) {
 			var lastSpace = linetext.lastIndexOf(' ');
 			linetext = text.slice(start, start+lastSpace);
 			offset = ((j+1) * charPerLine) - (start + lastSpace);
-			console.log('went inside the if statement');
+			// console.log('went inside the if statement');
 		}
-		console.log(linetext);
-		console.log('start: ' + start + ', end: ' + end);
-		console.log('lastSpace: ' + lastSpace);
-		console.log('offset: ' + offset);
+		// console.log(linetext);
+		// console.log('start: ' + start + ', end: ' + end);
+		// console.log('lastSpace: ' + lastSpace);
+		// console.log('offset: ' + offset);
 		newImage.drawText(x, y + (fontPt * 1.5 * j), linetext);
 	};
 	newImage.write(dir + outputPath, function(err) {
 		if (err) console.log('Add text to image error: ' + err);
 		console.log('saved to: ' + dir + outputPath);
-		// sendImage(dir + outputPath);
+		callback();
 	});
 }
 
 // Send image to tumblr.
-function sendImage(path) {
+function sendImage(name, callback) {
 	// pcx5nmddnzuws@tumblr.com
 	server.send({
-		text: 	"the daily koala",
-		from: 	"Andy <andyjiang@gmail.com>",
+		text: 	"Submitted by " + name,
+		from: 	"The Daily Koala <thedailykoala8@gmail.com>",
 		to: 	"<pcx5nmddnzuws@tumblr.com>",
-		subject: "your daily lulz",
+		subject: "Koala Lulz",
 		attachment:
 		[
 			{
-				path: dir + path,
+				path: dir + "/output.jpg",
 				type: "image/jpeg",
 				name: "lulz.jpg"
 			}
 		]
 	}, function(err, message) {
 		console.log(err || message);
+		callback();
 	});
 }
