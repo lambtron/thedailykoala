@@ -61,7 +61,7 @@ function getText( textHandler, callback ) {
 // Add line of text to image and saves it.
 var makeImage = function addText(text, callback) {
 	// Set the pathname for the input.
-	var inputPath = '/mike wei ' + (Math.floor(Math.random() * 59) + 1) + '.jpeg';
+	var inputPath = '/koala ' + (Math.floor(Math.random() * 59) + 1) + '.jpeg';
 
 	// Set the pathname for the output.
 	var outputPath = '/output.jpg';

@@ -19,7 +19,7 @@ app.get('/', function(req, res){
 	image.createImage( function() {
 	  	res.render('index.jade', {output: 'resources/output.jpg'});
 	  	// var image = fs.readFileSync('resources/output.jpg');
-		// res.setHeader('Content-Type', 'image/jpg');
+		// res.setHeaƒder('Content-Type', 'image/jpg');
 		// // res.setHeader('Content-Length', body.length);
 		// res.end(image, 'binary');
 	});
